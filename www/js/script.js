@@ -17,6 +17,9 @@ $(function() {
 
 	$("#login-submit").click(function(e) {
 		iniciarSesion();
+		$(':input','#login-form')
+		  .not(':button, :submit, :reset, :hidden')
+		  .val('');
 	});
 
 	$('#login-form').keypress(function (e) {
@@ -43,9 +46,31 @@ function iniciarSesion () {
     beforeSend: function () {
             console.log("Iniciando peticion ...")
     },
-    success:  function (response) {
-			if(response) {
-				console.log("Usuario encontrado");
+    success:  function (usuario) {
+			if(usuario) {
+
+
+				 $.ajax({
+			    data:  {
+			    	"sentencia" : '1',
+			    	"idUsuario" : usuario.id
+			  	},
+			    url: "php/server.php",
+			    type:  'post',
+			    beforeSend: function () {
+			            console.log("Dandole sesion a " + usuario.nombreUsuario)
+			    },
+			    success:  function (response) {
+						if(response) {
+							
+						}else {
+							console.log("Usuario no encontrado");
+						}
+			    }
+			  });
+
+
+
 			}else {
 				console.log("Usuario no encontrado");
 			}
