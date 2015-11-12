@@ -39,25 +39,39 @@
 		return $consulta->rowCount();
 	}
 
-		// Función para registrar una sesion //
+	// Función para registrar una sesion //
 	function registrarSesion ($dbh, $idUser) {
 
 		$date = date('Y/m/d H:i:s');
 		$date = strtotime($date);
 		$date = strtotime("+10 day", $date);
+		do {
+			$sesion = generateRandomString(1);
+		} while (null != existeSesion($dbh,$sesion));
+
+		
 
 		$consulta = $dbh->prepare('INSERT INTO sesion (idUser, token, fechaInicio, fechaFin) VALUES (:idUser, :token, :fechaInicio, :fechaFin)');
 		$consulta->bindParam(':idUser', $idUser , PDO::PARAM_INT);
 		$consulta->bindParam(':fechaInicio', date('Y/m/d H:i:s'), PDO::PARAM_STR);
 		$consulta->bindParam(':fechaFin', date('Y/m/d H:i:s', $date) , PDO::PARAM_STR);
-		$consulta->bindParam(':token', generateRandomString(15), PDO::PARAM_STR);
+		$consulta->bindParam(':token', $sesion , PDO::PARAM_STR);
 		$consulta->execute();
 		return $consulta->rowCount();
 	}
 
+	//Functión para obtener todas las sesiones //
+	function dameSesiones ($dbh) {
+		$consulta = $dbh->prepare('SELECT token FROM sesion ');
+		$consulta->execute();
+		return $consulta->fetchAll(PDO::FETCH_ASSOC);
+	}
+
 	// Función para generar una cadena aleatoria de longitud variable //
 	function generateRandomString($length) {
-    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    //$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $characters = '01234';
+
     $charactersLength = strlen($characters);
     $randomString = '';
     for ($i = 0; $i < $length; $i++) {

@@ -48,29 +48,7 @@ function iniciarSesion () {
     },
     success:  function (usuario) {
 			if(usuario) {
-
-
-				 $.ajax({
-			    data:  {
-			    	"sentencia" : '1',
-			    	"idUsuario" : usuario.id
-			  	},
-			    url: "php/server.php",
-			    type:  'post',
-			    beforeSend: function () {
-			            console.log("Dandole sesion a " + usuario.nombreUsuario)
-			    },
-			    success:  function (response) {
-						if(response) {
-							
-						}else {
-							console.log("Usuario no encontrado");
-						}
-			    }
-			  });
-
-
-
+				registrarUsuario(usuario);
 			}else {
 				console.log("Usuario no encontrado");
 			}
@@ -78,19 +56,25 @@ function iniciarSesion () {
   });
 }
 
-function registrarUsuario () {
-  $.ajax({
+function registrarUsuario (usuario) {
+	 $.ajax({
     data:  {
-    	"valorCaja1" : 'a',
-    	"valorCaja2" : 'b'
+    	"sentencia" : '1',
+    	"idUsuario" : usuario.id
   	},
     url: "php/server.php",
     type:  'post',
     beforeSend: function () {
-            $("#resultado").html("Procesando, espere por favor...");
+      console.log("Dandole sesion a " + usuario.nombreUsuario)
     },
     success:  function (response) {
-            console.log(response);
+			if(response) {
+				if (response == 1) {
+					
+				};
+			}else {
+				console.log("Problema al dar sesion");
+			}
     }
   });
 }
