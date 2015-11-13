@@ -86,13 +86,6 @@ if (isset($_POST['sentencia'])) {
         }
         echo json_encode($resultado);
         break;
-    case 1:
-        $resultado = registrarSesion($dbh, $_POST['idUsuario']);
-        echo json_encode($resultado);
-        break;
-    case 2:
-        echo "i es igual a 2";
-        break;
 	}
 }
 ?>
