@@ -41,23 +41,19 @@
 
 	// Función para registrar una sesion //
 	function registrarSesion ($dbh, $idUser) {
-
 		$date = date('Y/m/d H:i:s');
 		$date = strtotime($date);
 		$date = strtotime("+10 day", $date);
 		do {
-			$sesion = generateRandomString(1);
+			$sesion = generateRandomString(15);
 		} while (null != existeSesion($dbh,$sesion));
-
-		
-
 		$consulta = $dbh->prepare('INSERT INTO sesion (idUser, token, fechaInicio, fechaFin) VALUES (:idUser, :token, :fechaInicio, :fechaFin)');
 		$consulta->bindParam(':idUser', $idUser , PDO::PARAM_INT);
 		$consulta->bindParam(':fechaInicio', date('Y/m/d H:i:s'), PDO::PARAM_STR);
 		$consulta->bindParam(':fechaFin', date('Y/m/d H:i:s', $date) , PDO::PARAM_STR);
 		$consulta->bindParam(':token', $sesion , PDO::PARAM_STR);
 		$consulta->execute();
-		return $consulta->rowCount();
+		return $sesion;
 	}
 
 	//Functión para obtener todas las sesiones //
@@ -69,8 +65,7 @@
 
 	// Función para generar una cadena aleatoria de longitud variable //
 	function generateRandomString($length) {
-    //$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    $characters = '01234';
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
     $charactersLength = strlen($characters);
     $randomString = '';
@@ -80,9 +75,15 @@
     return $randomString;
 	}
 
+if (isset($_POST['sentencia'])) {
 	switch ($_POST['sentencia']) {
     case 0:
         $resultado = buscarUsuario($dbh,$_POST['nombreUsuario'],$_POST['pass']);
+        if ($resultado!=false) {
+        	session_start();
+					$_SESSION['user'] = $_POST['nombreUsuario'];
+					$_SESSION['pass'] = $_POST['pass'];
+        }
         echo json_encode($resultado);
         break;
     case 1:
@@ -92,6 +93,6 @@
     case 2:
         echo "i es igual a 2";
         break;
+	}
 }
-
 ?>

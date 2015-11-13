@@ -41,14 +41,18 @@ function iniciarSesion () {
     	"nombreUsuario" : nombreUsuario,
     	"pass" : pass
   	},
-    url: "php/server.php",
+    url: "php/defaultController.php",
     type:  'post',
     beforeSend: function () {
-            console.log("Iniciando peticion ...")
+    	console.log("Iniciando peticion ...")
     },
     success:  function (usuario) {
 			if(usuario) {
-				registrarUsuario(usuario);
+				if ($('#remember').prop('checked') == true) {
+					window.localStorage.setItem("usuario", usuario.nombreUsuario);
+					window.localStorage.setItem("pass", usuario.pass);
+				}
+				window.location.replace('html/home.html');
 			}else {
 				console.log("Usuario no encontrado");
 			}
@@ -56,25 +60,56 @@ function iniciarSesion () {
   });
 }
 
-function registrarUsuario (usuario) {
+function darSesionUsuario (usuario) {
 	 $.ajax({
     data:  {
     	"sentencia" : '1',
     	"idUsuario" : usuario.id
   	},
-    url: "php/server.php",
+    url: "php/defaultController.php",
     type:  'post',
     beforeSend: function () {
       console.log("Dandole sesion a " + usuario.nombreUsuario)
     },
     success:  function (response) {
 			if(response) {
-				if (response == 1) {
-					
-				};
+				if (response != "") {
+					if ($('#remember').prop('checked') == true) {
+						window.localStorage.setItem("sesId", response);
+					}else{
+						// Sino expira cuando se cierre la app //
+						setCookie('sessionId',response);
+					}			
+				}
 			}else {
 				console.log("Problema al dar sesion");
 			}
     }
   });
+}
+
+function comprobarSiHaySesion() {
+	var usuario = window.localStorage.getItem("usuario");
+	var pass = window.localStorage.getItem("pass");
+	if (usuario != null && pass!= null) {
+	  $.ajax({
+	    data:  {
+	    	"sentencia" : '0',
+	    	"nombreUsuario" : usuario,
+	    	"pass" : pass
+	  	},
+	    url: "php/defaultController.php",
+	    type:  'post',
+	    beforeSend: function () {
+	    	console.log("Iniciando peticion ...")
+	    },
+	    success:  function (usuario) {
+				if(usuario) {
+					window.location.replace('html/home.html');
+				}else {
+					console.log("Usuario no encontrado");
+				}
+	    }
+	  });
+	}
 }
