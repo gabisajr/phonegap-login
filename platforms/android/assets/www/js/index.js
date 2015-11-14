@@ -19,36 +19,6 @@
 var app = {
     // Application Constructor
     initialize: function() {
-
-
-
-
-
-            $.ajax({
-                data:  {
-                	"sentencia" : '0',
-                	"nombreUsuario" : "manuel",
-                	"pass" : "manuel"
-              	},
-                url: "http://mjgr0013.esy.es/login/prueba.php",
-                type:  'post',
-                beforeSend: function () {
-                	console.log("Iniciando peticion ...")
-                },
-                success:  function (usuario) {
-            			console.log(usuario);
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                  console.log(jqXHR.status);
-                  console.log(textStatus);
-                  console.log(errorThrown);
-                }
-              });
-
-
-
-
-
         this.bindEvents();
     },
     // Bind Event Listeners
