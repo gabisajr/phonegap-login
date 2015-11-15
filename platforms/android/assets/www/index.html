@@ -18,19 +18,22 @@
 -->
 <html>
     <head>
+        <meta charset="utf-8"/>
         <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
         <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
         <link rel="stylesheet" type="text/css" href="css/login.css" />
+        <link rel="stylesheet" href="css/jqueryMobile.min.css"/>
         <title>
             Login Basico Phonegap
         </title>
     </head>
     <body>
-        <div class="app">
-            <div class="container">
+    <img src="css/images/ajax-loader.gif" alt="" id="imagen" style="width:100%;heigth:100%"/>
+        <div class="app" id="contenidoApp" style="display:none">
+            <div data-role="page" id="pageone" data-url="pageone" class="container">
                 <div class="row">
                     <div class="col-md-6 col-md-offset-3">
                         <div class="panel panel-login">
@@ -68,7 +71,8 @@
                                             <div class="form-group">
                                                 <div class="row">
                                                     <div class="col-sm-6 col-sm-offset-3">
-                                                        <a type="button" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" href="html/home.html" data-transition="pop">Entrar</a>
+                                                        <a type="button" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" href="html/home.html" data-transition="flow">Entrar</a>
+                                                        <a href="#pagetwo" data-transition="pop">GO</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -112,19 +116,56 @@
                     </div>
                 </div>
             </div>
+
+            <div data-role="page" id="pagetwo" data-url="pagetwo" style="display:none">
+                <h2>pagina 2</h2>
+            </div>
+
+
+<!--
+            <div data-role="page" id="pageone">
+                <div data-role="header">
+                    <h1>Welcome To My Homepage</h1>
+                </div>
+
+                <div data-role="main" class="ui-content">
+                    <p>Click on the link to see the slide effect (slides to the next page from right to left).</p>
+                    <a href="#pagetwo" data-transition="slide">Slide to Page Two</a>
+                </div>
+
+                <div data-role="footer">
+                    <h1>Footer Text</h1>
+                </div>
+            </div>
+
+            <div data-role="page" id="pagetwo">
+                <div data-role="header">
+                    <h1>Welcome To My Homepage</h1>
+                </div>
+
+                <div data-role="main" class="ui-content">
+                    <p>Click on the link to see the slide effect REVERSED (slides to the previous page from left to right).</p>
+                    <a href="#pageone" data-transition="slide" data-direction="reverse">Slide to Page One (reversed)</a>
+                </div>
+
+                <div data-role="footer">
+                    <h1>Footer Text</h1>
+                </div>
+            </div>
+    -->
+
         </div>
-        <script type="text/javascript" src="cordova.js">
-        </script>
-        <script type="text/javascript" src="js/jquery-1.11.3.min.js">
-        </script>
-        <script type="text/javascript" src="js/bootstrap.min.js">
-        </script>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript" src="js/login.js"></script>
-        <script type="text/javascript" src="js/jquery.mobile.custom.min.js"></script>
+        <script type="text/javascript" src="js/jqueryMobile.min.js"></script>
         <script type="text/javascript">
-            app.initialize();
-            //comprobarSiHaySesion();
+            $(document).ready(function() {
+                app.initialize();
+                //comprobarSiHaySesion();
+            })
         </script>
     </body>
 </html>

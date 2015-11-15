@@ -16,48 +16,49 @@ $(function() {
 	});
 
 	$("#login-submit").click(function(e) {
-		iniciarSesion();
+		var nombreUsuario = $("#username").val();
+    	var pass = $("#password").val();
+		iniciarSesion(nombreUsuario,pass);
+		// Limpiamos los input text //
 		$(':input','#login-form')
 		  .not(':button, :submit, :reset, :hidden')
 		  .val('');
-	});
 
-	$('#login-form').keypress(function (e) {
- 		var key = e.which;
-		if(key == 13){  // the enter key code
-		  $("#login-submit").click();
-		}
-});
-
-});
-
-function iniciarSesion () {
-	var nombreUsuario = $("#username").val();
-	var pass = $("#password").val();
-
-  $.ajax({
-    data:  {
-    	"sentencia" : '0',
-    	"nombreUsuario" : nombreUsuario,
-    	"pass" : pass
-  	},
-    url: "php/defaultController.php",
-    type:  'post',
-    beforeSend: function () {
-    	console.log("Iniciando peticion ...")
-    },
-    success:  function (usuario) {
-			if(usuario) {
+		// Esto es porque como la peticion ajax tiene un pequeño retardo //
+		// haciendo esto ejecutamos x cosas cuando la peticion se haya resuelto //
+		d1 = $.Deferred();
+		$.when( d1 ).done(function ( usuario ) {
+			if(usuario!=false) {
 				if ($('#remember').prop('checked') == true) {
 					window.localStorage.setItem("usuario", usuario.nombreUsuario);
 					window.localStorage.setItem("pass", usuario.pass);
 				}
-				window.location.replace('html/home.html');
 			}else {
+				e.preventDefault();
 				console.log("Usuario no encontrado");
+				return false;
 			}
-    }
-  });
+		});
+	});
+});
+
+function iniciarSesion (nombreUsuario, pass) {
+	$.ajax({
+		data:  {
+			"sentencia" : '0',
+			"nombreUsuario" : nombreUsuario,
+			"pass" : pass
+		},
+		url: "http://mjgr0013.esy.es/login/defaultController.php",
+		type:  'post',
+		beforeSend: function () {
+			console.log("Buscando el usuario . . . ")
+		},
+		success:  function (respuesta) {
+			d1.resolve( respuesta );
+		}
+	});
+	return 1;
 }
 
 function darSesionUsuario (usuario) {
@@ -66,24 +67,24 @@ function darSesionUsuario (usuario) {
     	"sentencia" : '1',
     	"idUsuario" : usuario.id
   	},
-    url: "php/defaultController.php",
+    url: "http://mjgr0013.esy.es/login/defaultController.php",
     type:  'post',
     beforeSend: function () {
       console.log("Dandole sesion a " + usuario.nombreUsuario)
     },
     success:  function (response) {
-			if(response) {
-				if (response != "") {
-					if ($('#remember').prop('checked') == true) {
-						window.localStorage.setItem("sesId", response);
-					}else{
-						// Sino expira cuando se cierre la app //
-						setCookie('sessionId',response);
-					}			
+		if(response) {
+			if (response != "") {
+				if ($('#remember').prop('checked') == true) {
+					window.localStorage.setItem("sesId", response);
+				}else{
+					// Sino expira cuando se cierre la app //
+					setCookie('sessionId',response);
 				}
-			}else {
-				console.log("Problema al dar sesion");
 			}
+		}else {
+			console.log("Problema al dar sesion");
+		}
     }
   });
 }
@@ -98,17 +99,17 @@ function comprobarSiHaySesion() {
 	    	"nombreUsuario" : usuario,
 	    	"pass" : pass
 	  	},
-	    url: "php/defaultController.php",
+	    url: "http://mjgr0013.esy.es/login/defaultController.php",
 	    type:  'post',
 	    beforeSend: function () {
 	    	console.log("Iniciando peticion ...")
 	    },
 	    success:  function (usuario) {
-				if(usuario) {
-					window.location.replace('html/home.html');
-				}else {
-					console.log("Usuario no encontrado");
-				}
+			if(usuario) {
+				window.location.replace('html/home.html');
+			}else {
+				console.log("Usuario no encontrado");
+			}
 	    }
 	  });
 	}
