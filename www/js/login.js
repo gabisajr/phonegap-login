@@ -15,7 +15,10 @@ $(function() {
 		e.preventDefault();
 	});
 
-	$("#login-submit").click(function(e) {
+	$("#btn-login").click(function(e) {
+		if(typeof param1 == 'undefined') {
+			e.preventDefault();
+		}
 		var nombreUsuario = $("#username").val();
     	var pass = $("#password").val();
 		iniciarSesion(nombreUsuario,pass);
@@ -29,14 +32,14 @@ $(function() {
 		d1 = $.Deferred();
 		$.when( d1 ).done(function ( usuario ) {
 			if(usuario!=false) {
+			console.log(usuario);
 				if ($('#remember').prop('checked') == true) {
 					window.localStorage.setItem("usuario", usuario.nombreUsuario);
 					window.localStorage.setItem("pass", usuario.pass);
 				}
+				$("#login-submit").click();
 			}else {
-				e.preventDefault();
 				console.log("Usuario no encontrado");
-				return false;
 			}
 		});
 	});

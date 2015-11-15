@@ -33,139 +33,145 @@
     <body>
     <img src="css/images/ajax-loader.gif" alt="" id="imagen" style="width:100%;heigth:100%"/>
         <div class="app" id="contenidoApp" style="display:none">
-            <div data-role="page" id="pageone" data-url="pageone" class="container">
-                <div class="row">
-                    <div class="col-md-6 col-md-offset-3">
-                        <div class="panel panel-login">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-6">
-                                        <a href="#" class="active" id="login-form-link">
-                                            Iniciar Sesion
-                                        </a>
-                                    </div>
-                                    <div class="col-xs-6">
-                                        <a href="#" id="register-form-link">
-                                            Registrarse
-                                        </a>
-                                    </div>
-                                </div>
-                                <hr/>
-                            </div>
-                            <div class="panel-body">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <form id="login-form" action="http://phpoll.com/login/process" method="post" role="form" style="display: block;">
-                                            <div class="form-group">
-                                                <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Nombre de usuario" value=""/>
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Contraseña"/>
-                                            </div>
-                                            <div class="form-group text-center">
-                                                <input type="checkbox" tabindex="3" class="" name="remember" id="remember"/>
-                                                <label for="remember">
-                                                    Recuérdame
-                                                </label>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="row">
-                                                    <div class="col-sm-6 col-sm-offset-3">
-                                                        <a type="button" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" href="html/home.html" data-transition="flow">Entrar</a>
-                                                        <a href="#pagetwo" data-transition="pop">GO</a>
-                                                    </div>
+
+
+
+                        <div data-role="page" id="pageone" data-url="pageone" class="container">
+                            <div class="row">
+                                <div class="col-md-6 col-md-offset-3">
+                                    <div class="panel panel-login">
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-xs-6">
+                                                    <a href="#" class="active" id="login-form-link">
+                                                        Iniciar Sesion
+                                                    </a>
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <a href="#" id="register-form-link">
+                                                        Registrarse
+                                                    </a>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <div class="row">
-                                                    <div class="col-lg-12">
-                                                        <div class="text-center">
-                                                            <a href="http://phpoll.com/recover" tabindex="5" class="forgot-password">
-                                                                No recuerdo mi contraseña
-                                                            </a>
+                                            <hr/>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <form id="login-form" action="http://phpoll.com/login/process" method="post" role="form" style="display: block;">
+                                                        <div class="form-group">
+                                                            <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Nombre de usuario" value=""/>
                                                         </div>
-                                                    </div>
+                                                        <div class="form-group">
+                                                            <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Contraseña"/>
+                                                        </div>
+                                                        <div class="form-group text-center">
+                                                            <input type="checkbox" tabindex="3" class="" name="remember" id="remember"/>
+                                                            <label for="remember">
+                                                                Recuérdame
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="row">
+                                                                <div class="col-sm-6 col-sm-offset-3">
+                                                                    <button name="btn-login" id="btn-login">Entrar</button>
+                                                                    <a name="login-submit" id="login-submit" href="#pagetwo" data-transition="pop" style="display:none"/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="row">
+                                                                <div class="col-lg-12">
+                                                                    <div class="text-center">
+                                                                        <a href="http://phpoll.com/recover" tabindex="5" class="forgot-password">
+                                                                            No recuerdo mi contraseña
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                    <form id="register-form" action="http://phpoll.com/register/process" method="post" role="form" style="display: none;">
+                                                        <div class="form-group">
+                                                            <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Nombre de usuario" value=""/>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Correo" value=""/>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Contraseña"/>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Repite contraseña"/>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="row">
+                                                                <div class="col-sm-6 col-sm-offset-3">
+                                                                    <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Registrarme"/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
                                                 </div>
                                             </div>
-                                        </form>
-                                        <form id="register-form" action="http://phpoll.com/register/process" method="post" role="form" style="display: none;">
-                                            <div class="form-group">
-                                                <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Nombre de usuario" value=""/>
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Correo" value=""/>
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Contraseña"/>
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Repite contraseña"/>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="row">
-                                                    <div class="col-sm-6 col-sm-offset-3">
-                                                        <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Registrarme"/>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        <div data-role="page" id="pagetwo" data-url="pagetwo">
+                            <h2>Dentro de la app</h2>
+                        </div>
+
+
+
+            <!--
+
+                        <div data-role="page" id="pageone">
+                            <div data-role="header">
+                                <h1>Welcome To My Homepage</h1>
+                            </div>
+
+                            <div data-role="main" class="ui-content">
+                                <p>Click on the link to see the slide effect (slides to the next page from right to left).</p>
+                                <a href="#pagetwo" data-transition="slide">Slide to Page Two</a>
+                            </div>
+
+                            <div data-role="footer">
+                                <h1>Footer Text</h1>
+                            </div>
+                        </div>
+
+                        <div data-role="page" id="pagetwo">
+                            <div data-role="header">
+                                <h1>Welcome To My Homepage</h1>
+                            </div>
+
+                            <div data-role="main" class="ui-content">
+                                <p>Click on the link to see the slide effect REVERSED (slides to the previous page from left to right).</p>
+                                <a href="#pageone" data-transition="slide" data-direction="reverse">Slide to Page One (reversed)</a>
+                            </div>
+
+                            <div data-role="footer">
+                                <h1>Footer Text</h1>
+                            </div>
+                        </div>
+
+            -->
+
                     </div>
-                </div>
-            </div>
-
-            <div data-role="page" id="pagetwo" data-url="pagetwo" style="display:none">
-                <h2>pagina 2</h2>
-            </div>
-
-
-<!--
-            <div data-role="page" id="pageone">
-                <div data-role="header">
-                    <h1>Welcome To My Homepage</h1>
-                </div>
-
-                <div data-role="main" class="ui-content">
-                    <p>Click on the link to see the slide effect (slides to the next page from right to left).</p>
-                    <a href="#pagetwo" data-transition="slide">Slide to Page Two</a>
-                </div>
-
-                <div data-role="footer">
-                    <h1>Footer Text</h1>
-                </div>
-            </div>
-
-            <div data-role="page" id="pagetwo">
-                <div data-role="header">
-                    <h1>Welcome To My Homepage</h1>
-                </div>
-
-                <div data-role="main" class="ui-content">
-                    <p>Click on the link to see the slide effect REVERSED (slides to the previous page from left to right).</p>
-                    <a href="#pageone" data-transition="slide" data-direction="reverse">Slide to Page One (reversed)</a>
-                </div>
-
-                <div data-role="footer">
-                    <h1>Footer Text</h1>
-                </div>
-            </div>
-    -->
-
-        </div>
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
-        <script type="text/javascript" src="js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript" src="js/login.js"></script>
-        <script type="text/javascript" src="js/jqueryMobile.min.js"></script>
-        <script type="text/javascript">
-            $(document).ready(function() {
-                app.initialize();
-                //comprobarSiHaySesion();
-            })
-        </script>
-    </body>
-</html>
+                    <script type="text/javascript" src="cordova.js"></script>
+                    <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+                    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+                    <script type="text/javascript" src="js/index.js"></script>
+                    <script type="text/javascript" src="js/login.js"></script>
+                    <script type="text/javascript" src="js/jqueryMobile.min.js"></script>
+                    <script type="text/javascript">
+                        $(document).ready(function() {
+                            app.initialize();
+                            //comprobarSiHaySesion();
+                        })
+                    </script>
+                </body>
+            </html>
