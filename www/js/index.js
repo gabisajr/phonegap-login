@@ -33,9 +33,33 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-        $("#contenidoApp").fadeIn("slow", function () {
-            $("#imagen").hide();
-        });
+    	var usuarioLocal = window.localStorage.getItem("usuario");
+    	var pass = window.localStorage.getItem("pass");
+
+    	console.log(usuarioLocal);
+    	console.log(pass);
+
+    	if (usuarioLocal != null && pass != null) {
+    	    comprobarSiHaySesion(usuarioLocal, pass);
+            d1 = $.Deferred();
+            $.when( d1 ).done(function ( usuarioBD ) {
+                if(usuarioBD!=false) {
+                    $("#contenidoApp").fadeIn("slow", function () {
+                    	$("#username").val(usuarioLocal);
+                        $("#imagen").hide();
+                        $("#login-submit").click();
+                    });
+
+                }else {
+                    console.log("Usuario no encontrado");
+                }
+            });
+    	} else {
+            $("#contenidoApp").fadeIn("slow", function () {
+                $("#imagen").hide();
+            });
+    	}
+
         app.receivedEvent('deviceready');
     },
     // Update DOM on a Received Event

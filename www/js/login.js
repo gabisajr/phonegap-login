@@ -32,7 +32,6 @@ $(function() {
 		d1 = $.Deferred();
 		$.when( d1 ).done(function ( usuario ) {
 			if(usuario!=false) {
-			console.log(usuario);
 				if ($('#remember').prop('checked') == true) {
 					window.localStorage.setItem("usuario", usuario.nombreUsuario);
 					window.localStorage.setItem("pass", usuario.pass);
@@ -90,29 +89,25 @@ function darSesionUsuario (usuario) {
 		}
     }
   });
+  return 1
 }
 
-function comprobarSiHaySesion() {
-	var usuario = window.localStorage.getItem("usuario");
-	var pass = window.localStorage.getItem("pass");
-	if (usuario != null && pass!= null) {
+function comprobarSiHaySesion(usuarioLocal, pass) {
+
+	if (usuarioLocal != null && pass!= null) {
 	  $.ajax({
 	    data:  {
 	    	"sentencia" : '0',
-	    	"nombreUsuario" : usuario,
+	    	"nombreUsuario" : usuarioLocal,
 	    	"pass" : pass
 	  	},
 	    url: "http://mjgr0013.esy.es/login/defaultController.php",
 	    type:  'post',
 	    beforeSend: function () {
-	    	console.log("Iniciando peticion ...")
+	    	console.log("Buscando usuario de sesion ...")
 	    },
-	    success:  function (usuario) {
-			if(usuario) {
-				window.location.replace('html/home.html');
-			}else {
-				console.log("Usuario no encontrado");
-			}
+	    success:  function (usuarioBD) {
+			d1.resolve( usuarioBD );
 	    }
 	  });
 	}
